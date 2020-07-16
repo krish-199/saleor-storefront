@@ -36,8 +36,9 @@ describe("User login, logout and registration", () => {
   });
 
   describe("Register new account", () => {
-    xit("should register a new user", () => {
-      const fakeEmailAdressText = faker.internet.email();
+    it("should register a new user", () => {
+      const randomWord = faker.random.words(2).replace(" ", "-");
+      const fakeEmailAdressText = `${randomWord}@example.com`;
       const fakePasswordText = faker.internet.password();
 
       cy.get(HEADER_SELECTORS.mainMenuButton)
@@ -59,7 +60,7 @@ describe("User login, logout and registration", () => {
 
   describe("Login", () => {
     it("should successfully log in an user", () => {
-      cy.loginUser(Cypress.env("USER_NAME"), Cypress.env("USER_PASSWORD"))
+      cy.loginUser()
         .get(LOGIN_SELECTORS.allertPopupMessage, { timeout: 20000 })
         .should("contain", "You are now logged in");
     });
@@ -80,7 +81,7 @@ describe("User login, logout and registration", () => {
 
   describe("Logout", () => {
     it("should successfully log out an user", () => {
-      cy.loginUser(Cypress.env("USER_NAME"), Cypress.env("USER_PASSWORD"));
+      cy.loginUser();
       cy.wait(2000); // wait for reloading UI
       cy.logoutUser()
         .get(LOGIN_SELECTORS.allertPopupMessage, { timeout: 30000 })
