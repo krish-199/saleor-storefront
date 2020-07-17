@@ -1,3 +1,5 @@
 # Redirect rules for Netlify
 
 /*    /index.html   200
+/api/*  https://tecomm.herokuapp.com/graphql/
+
